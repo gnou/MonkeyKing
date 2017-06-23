@@ -381,12 +381,20 @@ extension MonkeyKing {
             case favorite(info: Info)
 
             var scene: String {
+//                switch self {
+//                case .session:
+//                    return "0"
+//                case .timeline:
+//                    return "1"
+//                case .favorite:
+//                    return "2"
+//                }
                 switch self {
-                case .session:
+                case .session(info: (title: _, description: _, thumbnail: _, media: _)):
                     return "0"
-                case .timeline:
+                case .timeline(info: (title: _, description: _, thumbnail: _, media: _)):
                     return "1"
-                case .favorite:
+                case .favorite(info: (title: _, description: _, thumbnail: _, media: _)):
                     return "2"
                 }
             }
@@ -412,13 +420,13 @@ extension MonkeyKing {
 
             var scene: Int {
                 switch self {
-                case .friends:
+                case .friends(info: (title: _, description: _, thumbnail: _, media: _)):
                     return 0x00
-                case .zone:
+                case .zone(info: (title: _, description: _, thumbnail: _, media: _)):
                     return 0x01
-                case .favorites:
+                case .favorites(info: (title: _, description: _, thumbnail: _, media: _)):
                     return 0x08
-                case .dataline:
+                case .dataline(info: (title: _, description: _, thumbnail: _, media: _)):
                     return 0x10
                 }
             }
@@ -1672,31 +1680,31 @@ private extension Set {
     subscript(platform: MonkeyKing.Message) -> MonkeyKing.Account? {
         let accountSet = MonkeyKing.sharedMonkeyKing.accountSet
         switch platform {
-        case .weChat:
+        case .weChat(_):
             for account in accountSet {
                 if case .weChat = account {
                     return account
                 }
             }
-        case .qq:
+        case .qq(_):
             for account in accountSet {
                 if case .qq = account {
                     return account
                 }
             }
-        case .weibo:
+        case .weibo(_):
             for account in accountSet {
                 if case .weibo = account {
                     return account
                 }
             }
-        case .alipay:
+        case .alipay(_):
             for account in accountSet {
                 if case .alipay = account {
                     return account
                 }
             }
-        case .twitter:
+        case .twitter(_):
             for account in accountSet {
                 if case .twitter = account {
                     return account
